@@ -3,6 +3,49 @@ import { Bg } from "./components/bg";
 
 import { motion } from "framer-motion";
 
+const KEYS = [
+  {
+    key: "q",
+    name: "заставка",
+    track: "intro",
+  },
+  {
+    key: "w",
+    name: "представление",
+    track: "meeting",
+  },
+  {
+    key: "e",
+    name: "волчок",
+    track: "volchok",
+  },
+  {
+    key: "r",
+    name: "гонг",
+    track: "gong",
+  },
+  {
+    key: "a",
+    name: "черный ящик",
+    track: "box",
+  },
+  {
+    key: "s",
+    name: "знатоки",
+    track: "win",
+  },
+  {
+    key: "d",
+    name: "телезирители",
+    track: "lose",
+  },
+  {
+    key: "SPACE",
+    name: "остановка трека",
+    track: "",
+  },
+];
+
 function App() {
   const [track, setTrack] = useState("");
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -56,6 +99,12 @@ function App() {
     }
   }, []);
 
+  const playTrack = (track: string) => {
+    setTrack(track);
+
+    audioRef.current!.currentTime = 0;
+  };
+
   useEffect(() => {
     if (!track || !audioRef.current) return;
     if (!track && audioRef.current) {
@@ -90,38 +139,14 @@ function App() {
         style={{ boxShadow: "0 25px 50px -12px rgb(0 0 0 / 91%)" }}
       >
         <ul className="flex flex-col gap-2">
-          <li>
-            <div>Q</div>
-            <span>заставка</span>
-          </li>
-          <li>
-            <div>W</div>
-            <span>представление</span>
-          </li>
-          <li>
-            <div>E</div>
-            <span>волчок</span>
-          </li>
-          <li>
-            <div>R</div>
-            <span>гонг</span>
-          </li>
-          <li>
-            <div>A</div>
-            <span>черный ящик</span>
-          </li>
-          <li>
-            <div>S</div>
-            <span>знатоки</span>
-          </li>
-          <li>
-            <div>D</div>
-            <span>телезирители</span>
-          </li>
-          <li>
-            <div>SPACE</div>
-            <span>остановка трека</span>
-          </li>
+          {KEYS.map((item) => (
+            <li key={item.key}>
+              <div onClick={() => playTrack(item.track)} className="uppercase">
+                {item.key}
+              </div>
+              <span>{item.name}</span>
+            </li>
+          ))}
         </ul>
       </motion.div>
     </div>
