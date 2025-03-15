@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Bg } from "./components/bg";
 
 import { motion } from "framer-motion";
+import { Button } from "./components/ui/button";
+import Timer from "./components/timer";
 
 const KEYS = [
   {
@@ -49,6 +51,7 @@ const KEYS = [
 function App() {
   const [track, setTrack] = useState("");
   const audioRef = useRef<HTMLAudioElement>(null);
+  // const [timer, setTimer] = useState(60)
 
   const pause = () => {
     audioRef.current!.pause();
@@ -123,6 +126,10 @@ function App() {
       <Bg />
 
       <audio ref={audioRef} src={`/${track}.mp3`} />
+
+      <div className="flex items-center gap-3 relative z-[2] mb-5 justify-center">
+        {/* <Timer /> */}
+      </div>
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
