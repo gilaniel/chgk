@@ -50,11 +50,6 @@ function App() {
   const [track, setTrack] = useState("");
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const initAudio = () => {
-    const audio = new Audio();
-    audio.crossOrigin = "anonymous";
-  };
-
   const pause = () => {
     audioRef.current!.pause();
   };
@@ -99,7 +94,7 @@ function App() {
     }
   }, []);
 
-  const playTrack = (track: string) => {
+  const handleSoundClick = (track: string) => {
     setTrack(track);
 
     audioRef.current!.currentTime = 0;
@@ -116,8 +111,6 @@ function App() {
   }, [track, audioRef]);
 
   useEffect(() => {
-    initAudio();
-
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
@@ -141,7 +134,10 @@ function App() {
         <ul className="flex flex-col gap-2">
           {KEYS.map((item) => (
             <li key={item.key}>
-              <div onClick={() => playTrack(item.track)} className="uppercase">
+              <div
+                onClick={() => handleSoundClick(item.track)}
+                className="uppercase"
+              >
                 {item.key}
               </div>
               <span>{item.name}</span>
