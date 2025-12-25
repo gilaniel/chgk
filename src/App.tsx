@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Bg } from "./components/bg";
 
 import { motion } from "framer-motion";
-import { Button } from "./components/ui/button";
-import Timer from "./components/timer";
 
 const KEYS = [
   {
